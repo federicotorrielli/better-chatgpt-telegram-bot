@@ -35,9 +35,14 @@ async def bing_chat(prompt, is_ref=False):
 async def processing_message(message, p_msg=None, is_done=False):
     if not is_done:
         p_msg = await bot.send_message(message.chat.id, "Processing")
+        await bot.send_chat_action(message.chat.id, 'typing')
         for i in range(5):
             await asyncio.sleep(1)
-            await bot.edit_message_text(text=f"Processing{'.' * (i + 1)}", chat_id=message.chat.id,
+            await bot.edit_message_text(text=f"📡 Searching the Web{'.' * (i + 1)}", chat_id=message.chat.id,
+                                        message_id=p_msg.message_id)
+        for i in range(5):
+            await asyncio.sleep(1)
+            await bot.edit_message_text(text=f"🧠 Processing{'.' * (i + 1)}", chat_id=message.chat.id,
                                         message_id=p_msg.message_id)
         return p_msg
     else:
