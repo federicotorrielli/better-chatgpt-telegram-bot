@@ -34,12 +34,7 @@ async def bing_chat(prompt, is_ref=False):
 
 async def processing_message(message, p_msg=None, is_done=False):
     if not is_done:
-        pm = await bot.send_message(message.chat.id, "Processing.")
-        for i in range(3):
-            await asyncio.sleep(0.3)
-            await bot.edit_message_text(chat_id=message.chat.id, message_id=pm.message_id,
-                                        text=f"Processing{'.' * (i + 1)}")
-        return pm
+        return await bot.send_message(message.chat.id, "Processing...")
     else:
         await bot.delete_message(message.chat.id, p_msg.message_id)
 
