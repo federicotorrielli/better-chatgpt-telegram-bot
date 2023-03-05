@@ -34,7 +34,7 @@ async def bing_chat(prompt, is_ref=False):
 
 async def processing_message(message, p_msg=None, is_done=False):
     if not is_done:
-        p_msg = await bot.send_message(message.chat.id, "Processing")
+        p_msg = await bot.send_message(message.chat.id, "🌐 Connecting to the Web...")
         await bot.send_chat_action(message.chat.id, 'typing')
         for i in range(5):
             await asyncio.sleep(1)
