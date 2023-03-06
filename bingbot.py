@@ -64,7 +64,7 @@ async def ask(message, is_ref=False, new_topic=False):
         print(f"Request received from {username} - {message.text}")
         # Call processing_message() with p_msg=None to create a new message
         if not prompt:
-            pm = await processing_message(message, None)
+            pm = await bot.send_message(message.chat.id, "Checking your query...")
             await bot.reply_to(message, "Empty query sent. Add your query /ask <message>")
         else:
             bot_response = await bing_chat(prompt, is_ref)
