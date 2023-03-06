@@ -34,16 +34,8 @@ async def bing_chat(prompt, is_ref=False):
 
 async def processing_message(message, p_msg=None, is_done=False):
     if not is_done:
-        p_msg = await bot.send_message(message.chat.id, "🌐 Connecting to the Web...")
+        p_msg = await bot.send_message(message.chat.id, "🧠 Processing...")
         await bot.send_chat_action(message.chat.id, 'typing')
-        for i in range(5):
-            await asyncio.sleep(1)
-            await bot.edit_message_text(text=f"📡 Searching the Web{'.' * (i + 1)}", chat_id=message.chat.id,
-                                        message_id=p_msg.message_id)
-        for i in range(5):
-            await asyncio.sleep(1)
-            await bot.edit_message_text(text=f"🧠 Processing{'.' * (i + 1)}", chat_id=message.chat.id,
-                                        message_id=p_msg.message_id)
         return p_msg
     else:
         await bot.delete_message(message.chat.id, p_msg.message_id)
@@ -63,12 +55,11 @@ async def ask(message, is_ref=False, new_topic=False):
         prompt = message.text.replace("/askref", "").replace("/ask", "")
         print(f"Request received from {username} - {message.text}")
         # Call processing_message() with p_msg=None to create a new message
+        pm = await processing_message(message, None)
         if not prompt:
-            pm = await bot.send_message(message.chat.id, "Checking your query...")
             await bot.reply_to(message, "Empty query sent. Add your query /ask <message>")
         else:
             bot_response = await bing_chat(prompt, is_ref)
-            pm = await processing_message(message, None)
             print(f"Response received - {bot_response}")
             await bot.reply_to(message, bot_response.replace('?\n\n', ''))
         # Call processing_message() with the message object to delete the message
