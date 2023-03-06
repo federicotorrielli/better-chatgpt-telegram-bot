@@ -63,11 +63,12 @@ async def ask(message, is_ref=False, new_topic=False):
         prompt = message.text.replace("/askref", "").replace("/ask", "")
         print(f"Request received from {username} - {message.text}")
         # Call processing_message() with p_msg=None to create a new message
-        pm = await processing_message(message, None)
         if not prompt:
+            pm = await processing_message(message, None)
             await bot.reply_to(message, "Empty query sent. Add your query /ask <message>")
         else:
             bot_response = await bing_chat(prompt, is_ref)
+            pm = await processing_message(message, None)
             print(f"Response received - {bot_response}")
             await bot.reply_to(message, bot_response.replace('?\n\n', ''))
         # Call processing_message() with the message object to delete the message
