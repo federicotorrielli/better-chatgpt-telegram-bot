@@ -1,5 +1,5 @@
 asyncio~=3.4.3
 telebot~=0.0.5
-edgegpt~=0.0.55
+edgegpt~=0.0.56.1
 pyTelegramBotAPI~=4.10.0
 aiohttp~=3.8.4
